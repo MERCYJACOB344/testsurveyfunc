@@ -4,7 +4,7 @@ function Login() {
   const [message, setMessage] = useState('');
 
   const fetchMessage = async () => {
-    fetch('/api/hello')
+    fetch('/api/HelloWorld')
   .then(response => {
     if (!response.ok) {
       throw new Error('Network response was not ok');
