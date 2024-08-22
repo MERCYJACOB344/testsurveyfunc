@@ -4,13 +4,20 @@ function Login() {
   const [message, setMessage] = useState('');
 
   const fetchMessage = async () => {
-    fetch('https://yellow-river-047162a1e.5.azurestaticapps.net/api/GetData', {
-  method: 'GET',
-  credentials: 'include', // This ensures cookies are sent with the request
-})
-.then(response => response.json())
-.then(data => console.log(data))
-.catch(error => console.error('Error:', error));
+    fetch('/api/GetData')
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.text(); // Extract response as plain text
+  })
+  .then(text => {
+    console.log(text); // Outputs the plain text message
+    setMessage(text); // Update state with the message
+  })
+  .catch(error => {
+    console.error('There was a problem with the fetch operation:', error);
+  });
   };
 
   return (

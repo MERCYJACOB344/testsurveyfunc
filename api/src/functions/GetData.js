@@ -8,37 +8,39 @@ app.http('GetData', {
     context.log(`Http function processed request for URL: "${request.url}"`);
 
     try {
+      // Configure the database connection pool
       const pool = new Pool({
         user: 'dbuser',
         host: 'nestit-337',
         database: 'test',
         password: 'dbuser',
-        port: 5432
+        port: 5432            // Default PostgreSQL port
       });
       
+      // Connect to the database
       const client = await pool.connect();
+      
+      // Define the SQL query to select rows from the table
+      const query = 'SELECT * FROM sst_work_order'; // Replace 'sst_work_order' with your table name
 
-      // Query to list all tables in the public schema
-      const tableQuery = 'SELECT table_name FROM information_schema.tables WHERE table_schema = \'public\'';
+      // Execute the query
+      const result = await client.query(query);
 
-      const res = await client.query(tableQuery);
-
+      // Release the client back to the pool
       client.release();
 
       // Process and return the result
-      const tables = res.rows.map(row => row.table_name);
+      const rows = result.rows; // Array of rows
+      context.log('Query result:', rows);
 
       context.res = {
         status: 200,
-        body: tables,
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': 'https://yellow-river-047162a1e.5.azurestaticapps.net', // Your frontend URL
-          'Access-Control-Allow-Credentials': 'true'
-        },
+        body: rows
       };
 
     } catch (error) {
+      // Handle and log errors
+      context.log.error('Error occurred:', error);
       context.res = {
         status: 500,
         body: { error: error.message }
