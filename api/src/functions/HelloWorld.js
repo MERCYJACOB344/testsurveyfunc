@@ -2,17 +2,55 @@ const { app } = require('@azure/functions');
 const { Pool } = require('pg');
 
 
-
+// Define the HTTP trigger
 app.http('GetData', {
   methods: ['GET'],
   authLevel: 'anonymous',
   handler: async (request, context) => {
     context.log(`Http function processed request for URL: "${request.url}"`);
-    context.res = {
-        status: 200,
-        body: { message: "Hello from Azure Functions!" },
-      };
+
+    try {
+       
+const pool = new Pool({
+    user: 'dbuser',
+        host: 'nestit-337',
+        database: 'test',
+        password: 'dbuser',
+        port: 5432,
     
+  });
+  
+     
+      const client = await pool.connect();
+
+     
+      const viewQuery = 'SELECT * FROM sst_work_order'; 
+
+    
+      const res = await client.query(viewQuery);
+
+      
+      client.release();
+
+      // Process and return the result
+      const list = res.rows.map(row => ({
+        id: row.id.toString(),
+        name: row.name.toString()
+      }));
+
+      context.res = {
+        status: 200,
+        body: list
+      };
+
+    } catch (error) {
+        context.res = {
+                    status: 500,
+                    body: { error: error.message }
+                  };
+    }
+
+
 
 //     try {
 //         // Create a new pool of clients to manage connections
