@@ -2,7 +2,7 @@
   "name": "testapp",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:7071",
+
   "dependencies": {
     "@fullcalendar/bootstrap": "^5.9.0",
     "@fullcalendar/daygrid": "^5.9.0",
