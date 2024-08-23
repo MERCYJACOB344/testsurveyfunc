@@ -1,0 +1,13 @@
+{
+    "bindings": [
+      {
+        "authLevel": "function",
+        "type": "httpTrigger",
+        "direction": "in",
+        "methods": ["get"],
+        "route": "GetData"
+      }
+    ],
+    "disabled": false
+  }
+  

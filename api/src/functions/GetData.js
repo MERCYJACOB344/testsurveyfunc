@@ -31,15 +31,15 @@ app.http('GetData', {
       const rows = result.rows; // Array of rows
       context.log('Query result:', rows);
 
-      context.res = {
-        status: 200,
-        body: JSON.stringify(rows), 
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*" 
-        },
+      // context.res = {
+      //   status: 200,
+      //   body: JSON.stringify(rows), 
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //     "Access-Control-Allow-Origin": "*" 
+      //   },
        
-      };
+      // };
       return{
         status: 200,
         body: JSON.stringify(rows)
