@@ -35,7 +35,11 @@ app.http('GetData', {
 
       context.res = {
         status: 200,
-        body: rows
+        body: rows,
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "http://localhost:3000"
+        }
       };
 
     } catch (error) {
