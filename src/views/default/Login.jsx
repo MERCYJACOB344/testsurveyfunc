@@ -5,26 +5,24 @@ function Login() {
 
   const fetchMessage = async () => {
     try {
-      const response = await fetch('http://localhost:7071/api/GetData');
-      console.log('response',response);
-      
+      const response = await fetch('/api/GetData'); 
+     console.log('response',response)
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error(`Network response was not ok: ${response.statusText}`);
       }
   
-      const data = await response.json(); // Parse the JSON response
-      
-      console.log(data); // Log the data to see the structure
-      
-      // Example: Combine all project names into a single message
-     
+      const data = await response.json(); 
   
-      setMessage(setMessage(JSON.stringify(data, null, 2))); // Update state with the test message
-      
+      console.log('Fetched data:', data); 
+  
+   
+      setMessage(JSON.stringify(data, null, 2));
     } catch (error) {
       console.error('There was a problem with the fetch operation:', error);
+      setMessage('Error fetching data'); 
     }
-  }
+  };
+  
 console.log('message',message);
   return (
     <div className="App">
