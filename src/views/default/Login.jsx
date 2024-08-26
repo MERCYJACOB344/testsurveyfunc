@@ -5,7 +5,7 @@ function Login() {
 
   const fetchMessage = async () => {
     try {
-      const response = await fetch('/api/GetData'); 
+      const response = await fetch(`api/GetData`); 
      console.log('response',response)
       if (!response.ok) {
         throw new Error(`Network response was not ok: ${response.statusText}`);
@@ -13,7 +13,6 @@ function Login() {
   
       const data = await response.json(); 
   
-      console.log('Fetched data:', data); 
   
    
       setMessage(JSON.stringify(data, null, 2));

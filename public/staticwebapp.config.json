@@ -3,13 +3,12 @@
     {
       "route": "/api/*",
       "allowedRoles": ["anonymous"]
-    },
-    {
-      "route": "/",
-      "rewrite": "/index.html"
     }
   ],
-  "navigationFallback": {
-    "rewrite": "/index.html"
-  }
+  "errorPages": [
+    {
+      "statusCode": 404,
+      "rewrite": "/404.html"
+    }
+  ]
 }
