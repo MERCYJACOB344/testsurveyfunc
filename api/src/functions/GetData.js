@@ -13,7 +13,7 @@ app.http('GetData', {
       host: 'nestit-337',
       database: 'test',
       password: 'dbuser',
-      port: 5432 
+      port: 5432,
     });
 
     let client;
